@@ -1,0 +1,417 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #0e0e0e;
+    color: #fff;
+}
+
+/* Our navigation bar styles */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 40px;
+    background-color: #1a1a1a;
+    position: sticky;
+    top: 0;
+    /* width: 100%; *//* this made our nav overflow cuz remember it's a content box, not a border box*/
+    z-index: 1000;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    border-radius: 1.5rem;
+}
+
+.logo span {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #00bcd4;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links li {
+    display: inline;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.1em;
+    transition: color 1.3s;
+}
+
+.nav-links a:hover {
+    color: #1cc0d6;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #333;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.search-bar input {
+    border: none;
+    background: none;
+    color: white;
+    outline: none;
+    width: 150px;
+}
+
+.search-bar button {
+    background: none;
+    border: none;
+    color: #00bcd4;
+    cursor: pointer;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.auth-buttons .login, .auth-buttons .signup {
+    padding: 8px 15px;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    border-radius: 5px;
+}
+
+.auth-buttons .login {
+    background: transparent;
+    color: #00bcd4;
+    border: 1px solid #00bcd4;
+}
+
+.auth-buttons .signup {
+    background: #00bcd4;
+    color: black;
+}
+
+.auth-buttons .login:hover {
+    background: #00bcd4;
+    color: black;
+}
+
+.auth-buttons .signup:hover {
+    background: #008ba3;
+}
+
+
+
+/* Our footer styles */
+
+footer {
+    background-color: #1a1a1a;
+    padding: 20px;
+    text-align: center;
+    margin-top: 20px;
+}
+footer a {
+    color: #fff;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+
+/* Hero Section - Index Page*/
+.hero {
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: url('/image/dataPic.png') no-repeat center center/cover;
+    position: relative;
+}
+.hero2{
+    margin-top: 6rem;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(to bottom, #0e0e0e, #03535e79);
+    position: relative;
+}
+
+.hero3{
+    margin-top: 1rem;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: #374772;
+    position: relative;
+    & img{border-radius: 1rem;}
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-content h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+}
+
+.hero-content h1 span {
+    color: #00bcd4;
+}
+
+.hero-content p {
+    font-size: 1.2em;
+    color: #ccc;
+    margin-bottom: 20px;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    color: black;
+    background: #00bcd4;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.cta-button:hover {
+    background: #008ba3;
+}
+
+/* Header of our Services Page */
+header.service-header {
+    padding: 50px;
+    background-color: #1a1a1a;
+}
+
+.service-header h1 {
+    font-size: 2.5em;
+    margin: 0;
+}
+
+.service-header p {
+    font-size: 1.2em;
+    color: #ccc;
+}
+
+.services {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 40px;
+}
+
+.service-card {
+    background: #222;
+    padding: 20px;
+    margin: 15px;
+    width: 250px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 12px rgba(255, 255, 255, 0.664);
+}
+
+.service-card i {
+    font-size: 3em;
+    color: #00bcd4;
+    margin-bottom: 10px;
+}
+
+.price {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #28a745;
+    margin: 10px 0;
+}
+
+.pricing-link {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 15px;
+    background: #4891df;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s;
+    cursor:default;
+}
+
+
+/* Contact Page */
+.contact {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.contact h1 {
+    font-size: 2.5em;
+}
+
+.contact-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+    max-width: 1000px;
+    margin: 20px auto;
+}
+
+.contact-form {
+    flex: 1;
+    background: #1a1a1a;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+}
+
+.contact-form label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+#newLbl{
+    display: inline;
+}
+
+.contact-form>input, .contact-form textarea {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    background: #222;
+    color: white;
+}
+
+.newBtns{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    & button{
+        text-decoration: none;
+        flex-basis:48%;
+        background: #00bcd4;
+        color: #fff;
+        height: 40px;
+        border-radius: 20px;
+        border: 0;
+        outline: 0;
+        cursor: pointer;
+        transition: background 1s; 
+    }
+}
+
+.contact-form button {
+    width: 100%;
+    padding: 10px;
+    background: #00bcd4;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background 0.3s;
+}
+
+.contact-form button:hover {
+    background: #008ba3;
+}
+
+.contact-info {
+    flex: 1;
+    background: #1a1a1a;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+}
+
+.contact-info h2 {
+    margin-bottom: 15px;
+}
+
+.contact-info p {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+.contact-info i {
+    color: #00bcd4;
+    margin-right: 10px;
+}
+
+/* our styling for narrow/small screens */
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+        position: static;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        padding: 10px 0;
+    }
+
+    .search-bar {
+        margin-top: 10px;
+    }
+
+    .auth-buttons {
+        margin-top: 10px;
+    }
+
+    .contact-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .contact-form, .contact-info {
+        width: 90%;
+    }
+}
+
+.hide{
+    display: none;
+}
