@@ -1,7 +1,13 @@
 <?php
 
 function Connect(){
-    $conn = new mysqli('localhost', 'root', '', 'bastion_db') or die($conn->connect_error);
+    // $dbhost = "localhost";
+    // $dbuser = "root";
+    // $dbpass = "";
+    // $dbname = "bastion_db";
+    
+    
+    $conn = new mysqli("localhost", "root", "", "bastion_db");
     return $conn;
 }
 

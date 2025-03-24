@@ -99,7 +99,7 @@ function showErrs($errors){
         <h1>Register</h1>
         <?php showErrs($errors);?>
 
-        <form method="POST" action = >
+        <form method="POST" action = "/authorisation/thankyou.php" >
             <div class="input-field">
                 <input type="text" placeholder="First Name" name="fName">
             </div>
@@ -120,7 +120,7 @@ function showErrs($errors){
             </div>
             <div class="btn-field">
                 <button type="submit">Register</button>
-                <button type="button"><a href="Login.php">Login</a></button>
+                <!-- <button type="button"><a href="Login.php">Login</a></button> -->
             </div>
         </form>
     </div>
