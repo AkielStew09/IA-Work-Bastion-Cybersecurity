@@ -31,7 +31,7 @@
         
         <div class="auth-buttons">
             <?php if(isset($_SESSION['uname'])):?>
-                <a href="/authorisation/Logout.php"><button class="login"> Log out</button></a>    
+                <a href="/authorisation/Logout.php"><button class="logout"> Log out</button></a>    
             <?php else:?>
                 <a href="/authorisation/Login.php"><button class="login">Login</button></a>
                 <a href="/authorisation/Register.php"><button class="signup">Sign Up</button></a>
@@ -45,7 +45,9 @@
             <h1>Welcome to <span>Bastion CyberSecurity</span></h1>
             <img src="/image/cyber-security-logo.avif" width="400rem" alt="">
             <p>Your trusted partner in cybersecurity. Protecting businesses with advanced security solutions.</p>
+            <?php if(!isset($_SESSION['uname'])):?>
             <a href="/authorisation/Login.php" class="cta-button">Sign in to Join Us!</a>
+            <?php endif;?>
         </div>
     </section>
 

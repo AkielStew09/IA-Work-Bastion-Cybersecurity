@@ -1,6 +1,6 @@
 <?php 
 
-
+session_start();
 
 require "../connection.php";
 $conn = Connect();
@@ -41,11 +41,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     
     if (empty($errors)) {
+        //make session
+        $_SESSION['uname'] = htmlentities($_POST["uname"]);
+
         // Save to file
         $data = "$fName, $lName, $email, $uname, $password\n";
         file_put_contents("register.txt", $data, FILE_APPEND);
+
         //keeping the file output from last assignment, 
-        //this time we're inserting the data to our db too
+        //but this time we're inserting the data to our db too
         $hash = password_hash($password, PASSWORD_DEFAULT);
 
         $insertQuery = "INSERT INTO tbl_users(f_name, l_name, email, u_name, pw) VALUES(?, ?, ?, ?, ?)";
@@ -54,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bind_param("sssss", $fName, $lName, $email, $uname, $hash);   //set the params
 
             if($stmt->execute()){
-                $displayMsg = "Thank You for resgistering with us, <span>$fName</span>, welcome to the Bastion Squadron!";
+                $displayMsg = "Thank You for registering with us, <span>$fName</span>, welcome to the Bastion Squadron!<br/>";
             }
             else{
                 $displayMsg = "Error while executing: ".$stmt->error;
@@ -79,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome Page</title>
+    <title>Thank You!</title>
     <link rel="stylesheet" href="..\css\styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="https://kit.fontawesome.com/YOUR_KIT_CODE.js" crossorigin="anonymous"></script> 
@@ -117,7 +121,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="hero-content">
             <h1><?php echo $displayMsg; ?></h1>
             <img src="/image/cybersecurity_audit.jpg" width="400px" alt="">
-            
+            <br/>
             <a href="/Services.php" class="cta-button">Click to see our services!</a>
         </div>
     </section>

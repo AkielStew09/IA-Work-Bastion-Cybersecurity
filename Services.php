@@ -40,7 +40,7 @@
         
         <div class="auth-buttons">
             <?php if(isset($_SESSION['uname'])):?>
-                <a href="/authorisation/Logout.php"><button class="login"> Log out</button></a>    
+                <a href="/authorisation/Logout.php"><button class="logout"> Log out</button></a>    
             <?php else:?>
                 <a href="/authorisation/Login.php"><button class="login">Login</button></a>
                 <a href="/authorisation/Register.php"><button class="signup">Sign Up</button></a>

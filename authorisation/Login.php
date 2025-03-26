@@ -8,36 +8,65 @@ $pass_err = "";
 
 
 if(isset($_POST["login"])){
+    
+    
     $valid = true;
 
     if(empty ($_POST["uname"])){
         $uname_err = "Please Enter a username ";
-
         $valid = false;
     }
-
     if(empty ($_POST["pass"])){
         $pass_err = "Please Enter a password";
 
         $valid = false;
     }else if(strlen($_POST["pass"]) < 8){
+        
         $pass_err = "Password must be at least 8 characters long";
 
         $valid = false;
     }
 
     if($valid){
-        $_SESSION['uname'] = htmlentities($_POST["uname"]);
+        require "../connection.php";
+        $conn = Connect();
 
-        if(isset($_POST["remember"])){
-            $cookieName = "rememberMe";
-            $cookieValue = $_SESSION['uname'];
-            $expiry = time() + (86400 * 7); //our cookie lasts a week
+        $uname = trim($_POST["uname"]);
+        $pass = trim($_POST["pass"]);
+        
+        
 
-            setcookie($cookieName, $cookieValue, $expiry, "/");
+        $selectStmt = $conn->prepare("SELECT * FROM tbl_users WHERE u_name = ?"); 
+        $selectStmt->bind_param("s", $uname);
+        $selectStmt->execute();
+        $result = $selectStmt->get_result();
+        $user = $result->fetch_assoc();
+
+        
+
+        if($result->num_rows == 1){
+            $checkPass = password_verify($pass, $user["pw"]); //compares entered pw to the hash
+
+            if($checkPass){
+                $_SESSION['uname'] = htmlentities($uname);
+            
+                if(isset($_POST["remember"])){
+                    $cookieName = "rememberMe";
+                    $cookieValue = $_SESSION['uname'];
+                    $expiry = time() + (86400 * 7); //our cookie lasts a week
+
+                    setcookie($cookieName, $cookieValue, $expiry, "/");
+                }
+            
+                header('Location: welcome.php');
+            }
+            
+        }else{
+            $uname_err = "Incorrect Credentials";
         }
 
-        header('Location: welcome.php');
+      
+        $selectStmt->close(); $conn->close();
     }
 
 }
@@ -72,7 +101,7 @@ if(isset($_POST["login"])){
         
         <div class="auth-buttons">
             <?php if(isset($_SESSION['uname'])):?>
-                <a href="/authorisation/Logout.php"><button class="login"> Log out</button></a>    
+                <a href="/authorisation/Logout.php"><button class="logout"> Log out</button></a>    
             <?php else:?>
                 <a href="/authorisation/Login.php"><button class="login">Login</button></a>
                 <a href="/authorisation/Register.php"><button class="signup">Sign Up</button></a>
@@ -84,7 +113,7 @@ if(isset($_POST["login"])){
     <div class="contact-container" >
         
         
-        <form method="POST" class="contact-form">
+        <form method="POST" class="contact-form" >
 
             <h2>Login</h2>
             <?php
@@ -99,7 +128,7 @@ if(isset($_POST["login"])){
                 <?php  echo $uname_err; ?>
                 <?php  echo "<br/>$pass_err" ; ?>
             </span>
-            <input type="text" placeholder="Username" name="uname" value="<?php echo $savedName;?>">
+            <input type="text" placeholder="Username" name="uname" value="<?php echo $savedName;?>" style="margin-top: 8px;" />
                 
             <input type="password" placeholder="Password" name="pass">
             
@@ -112,7 +141,7 @@ if(isset($_POST["login"])){
             
             <div class="newBtns">
                 <button type="submit" name="login">Login</button>
-                <a href="Register.php"><button type="button">Register</button></a>
+                <!-- <a href="Register.php"><button type="button">Register</button></a> -->
             </div>
         </form>
     </div>

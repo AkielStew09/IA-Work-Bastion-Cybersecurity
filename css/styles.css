@@ -86,7 +86,7 @@ body {
     gap: 10px;
 }
 
-.auth-buttons .login, .auth-buttons .signup {
+.auth-buttons .login, .auth-buttons .signup, .auth-buttons .logout{
     padding: 8px 15px;
     border: none;
     cursor: pointer;
@@ -98,6 +98,11 @@ body {
     background: transparent;
     color: #00bcd4;
     border: 1px solid #00bcd4;
+}
+.auth-buttons .logout{
+    background: transparent;
+    color: #e03b3b;
+    border: 1px solid #e03b3b;
 }
 
 .auth-buttons .signup {
