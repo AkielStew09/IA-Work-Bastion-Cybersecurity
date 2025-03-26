@@ -141,7 +141,7 @@ footer a:hover {
 
 /* Hero Section - Index Page*/
 .hero {
-    height: 90vh;
+    padding: 7rem 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -151,7 +151,8 @@ footer a:hover {
 }
 .hero2{
     margin-top: 6rem;
-    height: 90vh;
+    padding: 10rem 0;
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -161,8 +162,9 @@ footer a:hover {
 }
 
 .hero3{
-    margin-top: 1rem;
-    height: 90vh;
+    
+    
+    padding: 10rem 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -185,6 +187,7 @@ footer a:hover {
 .hero-content {
     position: relative;
     z-index: 2;
+    margin: 0 10px;
 }
 
 .hero-content h1 {
@@ -419,4 +422,43 @@ header.service-header {
 
 .hide{
     display: none;
+}
+
+/* profile page */
+
+.profile-container { 
+    max-width: 600px; 
+    margin: 2rem auto; 
+    padding: 2rem; 
+    text-align: center;
+    background-color: #5a5a5a;
+    border-radius: 2rem;
+    & h1{
+        color: #00bcd4;
+    }
+}
+.profile-field { margin-bottom: 1rem; }
+.profile-actions { margin-top: 2rem; }
+.profbtn { padding: 0.5rem 1rem; cursor: pointer; }
+.profbtn-edit { background: #4CAF50; color: white; }
+.profbtn-delete { background: #f44336; color: white; }
+
+/* edit pge */
+.edit-form { 
+    max-width: 600px; 
+    margin: 2rem auto; 
+    background-color: #5a5a5a;
+    padding: 3rem;
+    border-radius: 2rem;
+    & h1{
+        text-align: center;
+    }
+    
+}
+.form-group { margin-bottom: 1rem; }
+
+.edit-form label { display: block; margin-bottom: 0.5rem; }
+
+.edit-form input[type="text"], input[type="email"] { 
+    width: 100%; padding: 0.5rem; 
 }

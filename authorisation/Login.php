@@ -49,6 +49,7 @@ if(isset($_POST["login"])){
 
             if($checkPass){
                 $_SESSION['uname'] = htmlentities($uname);
+                $_SESSION['id'] = $user["id"];
             
                 if(isset($_POST["remember"])){
                     $cookieName = "rememberMe";
@@ -101,7 +102,9 @@ if(isset($_POST["login"])){
         
         <div class="auth-buttons">
             <?php if(isset($_SESSION['uname'])):?>
-                <a href="/authorisation/Logout.php"><button class="logout"> Log out</button></a>    
+                <a href="/authorisation/profile.php"><button class="login"> See Profile</button></a>
+                <a href="/authorisation/Logout.php"><button class="logout" 
+                onclick="return confirm('Are you sure you want to Log Out?')"> Log out</button></a>    
             <?php else:?>
                 <a href="/authorisation/Login.php"><button class="login">Login</button></a>
                 <a href="/authorisation/Register.php"><button class="signup">Sign Up</button></a>

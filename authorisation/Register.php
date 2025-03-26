@@ -50,8 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     if (empty($errors)) {
 
-        //make session
-        $_SESSION['uname'] = htmlentities($_POST["uname"]);
+        
 
         // Save to file
         $data = "$fName, $lName, $email, $uname, $password\n";
@@ -67,9 +66,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bind_param("sssss", $fName, $lName, $email, $uname, $hash);   //set the params
 
             if($stmt->execute()){
+                //make session
+                $_SESSION['uname'] = htmlentities($uname);
+
+
                 $displayMsg = "Thank You for registering with us, <span>$uname</span>, welcome to the Bastion Squadron!<br/>";
                 
                 $_SESSION["msg"] = $displayMsg;
+                $result = $conn->query("SELECT id FROM tbl_users WHERE u_name = ");
+                $user = $result->fetch_assoc();
+                $_SESSION["id"] = $user["id"];
                 header('Location: thankyou.php');
             }
             else{
@@ -93,6 +99,9 @@ function showErrs($errors){
         }
     }
 }
+
+$stmt->close(); $conn->close();
+
 
 ?>
 
@@ -128,7 +137,9 @@ function showErrs($errors){
         
         <div class="auth-buttons">
             <?php if(isset($_SESSION['uname'])):?>
-                <a href="/authorisation/Logout.php"><button class="logout"> Log out</button></a>    
+                <a href="/authorisation/profile.php"><button class="login"> See Profile</button></a>
+                <a href="/authorisation/Logout.php"><button class="logout" 
+                onclick="return confirm('Are you sure you want to log out?')"> Log out</button></a>    
             <?php else:?>
                 <a href="/authorisation/Login.php"><button class="login">Login</button></a>
                 <a href="/authorisation/Register.php"><button class="signup">Sign Up</button></a>
