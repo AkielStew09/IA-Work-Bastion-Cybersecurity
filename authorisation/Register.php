@@ -1,14 +1,31 @@
 <?php 
+session_start();
+
+require "../connection.php";
+$conn = Connect();
+
+
+
 global $errors;
 $errors = [];
+$displayMsg = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $fName = trim($_POST["fName"]);
-    $lName = trim($_POST["lName"]);
-    $email = trim($_POST["email"]);
-    $uname = trim($_POST["uname"]);
-    $password = $_POST["pass"];
-    $confirm_password = $_POST["confirm_pass"];
+    $fName = $conn->real_escape_string(trim($_POST["fName"]));
+    $lName = $conn->real_escape_string(trim($_POST["lName"]));
+    $email = $conn->real_escape_string(trim($_POST["email"]));
+    $uname = $conn->real_escape_string(trim($_POST["uname"]));
+    $password = trim($_POST["pass"]);
+    $confirm_password = trim($_POST["confirm_pass"]);
+
+
+    $uniqueName = $conn->prepare("SELECT * FROM tbl_users WHERE u_name = ?");
+    $uniqueName->bind_param("s", $uname);
+    $uniqueName->execute();
+    $nameResult = $uniqueName->get_result();
+    if($nameResult->num_rows > 0){
+        $errors[] = "Username is already taken.";
+    }
     
     
     // Validate all fields are filled
@@ -32,19 +49,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     
     if (empty($errors)) {
+
+        //make session
+        $_SESSION['uname'] = htmlentities($_POST["uname"]);
+
         // Save to file
         $data = "$fName, $lName, $email, $uname, $password\n";
         file_put_contents("register.txt", $data, FILE_APPEND);
 
-    } 
-    // else {
-    //     // Show errors
-    //     foreach ($errors as $error) {
-    //         echo "<p style='color: red;'>$error</p>";
-    //     }
-    // }
-}
+        //keeping the file output from last assignment, 
+        //but this time we're inserting the data to our db too
+        $hash = password_hash($password, PASSWORD_DEFAULT);
 
+        $insertQuery = "INSERT INTO tbl_users(f_name, l_name, email, u_name, pw) VALUES(?, ?, ?, ?, ?)";
+
+        if($stmt = $conn->prepare($insertQuery)){//prepare statement
+            $stmt->bind_param("sssss", $fName, $lName, $email, $uname, $hash);   //set the params
+
+            if($stmt->execute()){
+                $displayMsg = "Thank You for registering with us, <span>$uname</span>, welcome to the Bastion Squadron!<br/>";
+                
+                $_SESSION["msg"] = $displayMsg;
+                header('Location: thankyou.php');
+            }
+            else{
+                $displayMsg = "Error while executing: ".$stmt->error;
+            }
+
+        }
+        else{
+            echo "Error preparing statement: ".$conn->error;
+        }
+
+
+
+    } 
+    
+}
 function showErrs($errors){
     if(!empty($errors)){
         foreach ($errors as $error) {
@@ -99,7 +140,7 @@ function showErrs($errors){
         <h1>Register</h1>
         <?php showErrs($errors);?>
 
-        <form method="POST" action = "/authorisation/thankyou.php" >
+        <form method="POST" action = "" >
             <div class="input-field">
                 <input type="text" placeholder="First Name" name="fName">
             </div>
